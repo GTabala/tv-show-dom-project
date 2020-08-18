@@ -28,4 +28,10 @@ function makePageForEpisodes(episodeList) {
   });
 }
 
+let footer = document.createElement("footer");
+footer.style.textAlign = "right";
+footer.style.paddingRight = "20px";
+footer.innerHTML = 'Data provided by <a href = "https://www.tvmaze.com/" target = "_blank" >www.tvmaze.com</a>';
+document.body.appendChild(footer);
+
 window.onload = setup;
