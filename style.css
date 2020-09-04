@@ -14,6 +14,9 @@
   background-color: white;
   border-radius: 5px;
 }
+.episode :focus {
+background-color: chocolate;
+}
 
 .titleEp {
   border: solid black 1px;
@@ -32,4 +35,15 @@
 p {
   padding: 0 10% 5px 10%;
 line-height: 1.8;
+}
+.hidden {
+  display: none;
+}
+#search {
+  width: 100px;
+}
+#navBar {
+  height: 50px;
+  /* background-color: blueviolet; */
+  width: 100%;
 }
