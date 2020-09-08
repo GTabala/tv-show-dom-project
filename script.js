@@ -1,13 +1,17 @@
-//You can edit ALL of the code here
 function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
+  // const allEpisodes = getAllEpisodes();
+  // makePageForEpisodes(allEpisodes);
+  fetch("https://api.tvmaze.com/shows/527/episodes")
+  .then(response => response.json())
+  .then(allEpisodes => makePageForEpisodes(allEpisodes))
+  .catch( err => console.log(err));
 }
-//function getEpisodeNumber(episode) {}
+
 const rootElem = document.getElementById("root");
 
 let helpfulArray = [];
-let displayedEpisodes = 73;
+let displayedEpisodes = 0;
+let numberOfAllEpisodes = 0;
 let nav = document.createElement("nav");
 nav.id = "navBar";
 nav.style.display = "flex";
@@ -27,7 +31,7 @@ search.style.height = "25px";
 search.style.borderRadius = "5px";
 search.placeholder = "your search term...";
 let displayedEpisodesP = document.createElement("p");
-displayedEpisodesP.innerText = `Displaying ${displayedEpisodes}/73 episodes`
+
 nav.appendChild(displayedEpisodesP);
 
 
@@ -45,7 +49,8 @@ function makePageForEpisodes(episodeList) {
     titleDiv.className = "titleEp";
     let epImage = document.createElement("img");
     episodeContainer.className = "episode";
-    //console.log(element);
+    displayedEpisodes++;
+    numberOfAllEpisodes++;
     helpfulArray.push({
       episode: episodeContainer,
       name: element.name.toLowerCase(),
@@ -70,6 +75,7 @@ function makePageForEpisodes(episodeList) {
     episodeContainer.insertBefore(epImage, episodeContainer.firstChild);
     episodeContainer.insertBefore(titleDiv, episodeContainer.firstChild);
   });
+  displayedEpisodesP.innerText = `Displaying ${displayedEpisodes}/${numberOfAllEpisodes} episodes`;
 }
 
 let footer = document.createElement("footer");
@@ -78,15 +84,7 @@ footer.style.paddingRight = "20px";
 footer.innerHTML =
   'Data provided by <a href = "https://www.tvmaze.com/" target = "_blank" >www.tvmaze.com</a>';
 document.body.appendChild(footer);
-// let nav = document.createElement("nav");
-// nav.id = "navBar";
-// led chooseAnEpisode = document.createElement("select");
-// chooseAnEpisode.id = "chooseAnEpisode";
-// chooseAnEpisode.name = "choose";
-// let search = document.createElement("input");
-// rootElem.insertBefore(nav, rootElem.firstChild);
-// nav.appendChild(search);
-// search.id = "search";
+
 
 function searchEpisodes() {
   displayedEpisodes = 0;
@@ -101,12 +99,13 @@ function searchEpisodes() {
       element.episode.classList.add("hidden");
     }
   });
-  displayedEpisodesP.innerText = `Displaying ${displayedEpisodes}/73 episodes`;
+  displayedEpisodesP.innerText = `Displaying ${displayedEpisodes}/${numberOfAllEpisodes} episodes`;
 }
 
 search.onkeyup = searchEpisodes; 
 
 chooseAnEpisode.onchange = (event) => {
+  let listName = "";
   if(event.target.value === "All episodes"){
     search.value = "";
   } else {
