@@ -8,6 +8,7 @@ function setup() {
   });
 
   loadShow(allShows[0].id);
+
 }
 
 function loadShow(id) {
@@ -19,7 +20,7 @@ function loadShow(id) {
   search.value = "";
 
   let removeEpisodes = rootElem.querySelectorAll(".episode");
-  console.log(removeEpisodes);
+ 
   removeEpisodes.forEach((item) => rootElem.removeChild(item));
 
   fetch(`https://api.tvmaze.com/shows/${id}/episodes`)
@@ -106,6 +107,10 @@ function makePageForEpisodes(episodeList) {
     }
 
     episodeContainer.insertBefore(titleDiv, episodeContainer.firstChild);
+    let episodeNumber = document.createElement("div");
+    episodeNumber.innerText = "82";
+    episodeNumber.className = "hidden";
+    episodeContainer.insertBefore(episodeNumber, episodeContainer.firstChild);
   });
   displayedEpisodesP.innerText = `Displaying ${displayedEpisodes}/${numberOfAllEpisodes} episodes`;
 }
@@ -152,7 +157,11 @@ chooseAnEpisode.onchange = (event) => {
     });
   }
 };
-
+document.addEventListener("click", (event) => {
+  if(event.target.parentNode.className === "episode") {loadShow(event.target.parentNode.firstChild.innerText)}
+  else if (event.target.className === "episode") {loadShow(event.target.firstChild.innerText)}
+});
 chooseAnShow.onchange = (event) => loadShow(event.target.value);
+
 
 window.onload = setup;
