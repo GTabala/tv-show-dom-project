@@ -1,6 +1,14 @@
 function setup() {
   const allShows = getAllShows();
-  allShows.forEach((item) => {
+  allShows.sort((a,b) =>{
+    if(a.name.toLowerCase() > b.name.toLowerCase()){
+      return 1;
+    }
+     if(a.name.toLowerCase() < b.name.toLowerCase()){
+      return -1;
+    }
+    return 0;
+  }).forEach((item) => {
     let option = document.createElement("option");
     option.value = item.id;
     option.innerText = item.name;
@@ -8,7 +16,6 @@ function setup() {
   });
 
   loadShow(allShows[0].id);
-
 }
 
 function loadShow(id) {
