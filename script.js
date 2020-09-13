@@ -1,5 +1,14 @@
 function setup() {
   const allShows = getAllShows();
+  allShows.sort((a,b) =>{
+    if(a.name.toLowerCase() > b.name.toLowerCase()){
+      return 1;
+    }
+     if(a.name.toLowerCase() < b.name.toLowerCase()){
+      return -1;
+    }
+    return 0;
+  })
   allShows.forEach((item) => {
     let option = document.createElement("option");
     option.value = item.id;
