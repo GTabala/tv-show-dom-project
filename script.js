@@ -8,8 +8,7 @@ function setup() {
       return -1;
     }
     return 0;
-  })
-  allShows.forEach((item) => {
+  }).forEach((item) => {
     let option = document.createElement("option");
     option.value = item.id;
     option.innerText = item.name;
