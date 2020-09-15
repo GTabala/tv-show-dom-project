@@ -4,6 +4,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .episode {
   margin: 20px;
   display: flex;
@@ -13,9 +14,11 @@
   justify-content: flex-start;
   background-color: white;
   border-radius: 5px;
+  cursor: pointer;
 }
-.episode :focus {
-background-color: chocolate;
+.episode:hover {
+background-color: rgb(199, 223, 216);
+/* width: 26%; */
 }
 
 .titleEp {

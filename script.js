@@ -15,7 +15,7 @@ function setup() {
     chooseAnShow.appendChild(option);
   });
 
-  loadShow(allShows[0].id);
+  //loadShow(allShows[0].id); // Not useful on the level 500
 }
 
 function loadShow(id) {
@@ -165,8 +165,11 @@ chooseAnEpisode.onchange = (event) => {
   }
 };
 document.addEventListener("click", (event) => {
-  if(event.target.parentNode.className === "episode") {loadShow(event.target.parentNode.firstChild.innerText)}
-  else if (event.target.className === "episode") {loadShow(event.target.firstChild.innerText)}
+  if(event.target.parentNode.className === "episode") {loadShow(event.target.parentNode.firstChild.innerText);
+     chooseAnShow.value = 82;}
+  else if (event.target.className === "episode") {loadShow(event.target.firstChild.innerText);
+    chooseAnShow.value = 82;}
+  
 });
 chooseAnShow.onchange = (event) => loadShow(event.target.value);
 
