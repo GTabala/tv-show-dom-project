@@ -4,6 +4,20 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.show {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+.show h1 {
+  width: 100%;
+}
+
+#navShow {
+  background-color: chocolate;
+}
 
 .episode {
   margin: 20px;
