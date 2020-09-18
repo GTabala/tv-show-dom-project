@@ -21,7 +21,8 @@ optionAllShow.innerText = "All shows";
 showSelector.appendChild(optionAllShow);
 function setup() {
   let allShows = getAllShows().filter((i) => i.id != 1127);
-  allShows.sort((a, b) => {
+  allShows
+    .sort((a, b) => {
       if (a.name.toLowerCase() > b.name.toLowerCase()) {
         return 1;
       }
@@ -35,24 +36,35 @@ function setup() {
       option.value = item.id;
       option.innerText = item.name;
       chooseAShow.appendChild(option);
-      
+
       showSelector.appendChild(option.cloneNode(true));
     });
-makePageForShows(allShows);
+  makePageForShows(allShows);
   //loadShow(allShows[0].id); // Not useful on the level 500
 }
 
-function makePageForShows(showList){
-showList.forEach(showObject =>{
-  let showContainer = document.createElement("div");
-  showContainer.className = "show";
-  showContainer.innerHTML = `<h1>${showObject.name}</h1><br><img src = "${showObject.image.medium}">`;
-  showsContainer.appendChild(showContainer);
-});
-addFooter();
-};
+function makePageForShows(showList) {
+  showList.forEach((showObject) => {
+    let showContainer = document.createElement("div");
+    showContainer.className = "show";
+    // let genres = ;
+    // console.log(genres);
+    showContainer.innerHTML = `<p class = "hidden">${showObject.id}</p><h1>${showObject.name}</h1><div class = "imgShow"><img src = "${showObject.image.medium}"></div><div class = "showSummary">${showObject.summary}</div>
+    <div class = "info">
+    <p><b>Rated:</b> ${showObject.rating.average}</p>
+    <p><b>Genres:</b> ${showObject.genres.join(", ")}</p>
+    <p><b>Status:</b> ${showObject.status}</p>
+    <p><b>Runtime:</b> ${showObject.runtime}</p>
+   
+    </div>`;
+    showsContainer.appendChild(showContainer);
+  });
+  addFooter();
+}
 
 function loadShow(id) {
+  showsContainer.classList.add("hidden");
+  document.getElementById("root").style.display = "";
   let removeOptions = chooseAnEpisode.querySelectorAll("option");
   removeOptions.forEach((item) => chooseAnEpisode.removeChild(item));
   helpfulArray = [];
@@ -200,13 +212,26 @@ chooseAnEpisode.onchange = (event) => {
   }
 };
 document.addEventListener("click", (event) => {
-  if (event.target.parentNode.className === "episode") {
+  if (event.target.parentNode.className === "show") {
     loadShow(event.target.parentNode.firstChild.innerText);
-    chooseAShow.value = 82;
-  } else if (event.target.className === "episode") {
+    chooseAShow.value = event.target.parentNode.firstChild.innerText;
+  } else if (event.target.parentNode.parentNode.className === "show") {
+    loadShow(event.target.parentNode.parentNode.firstChild.innerText);
+    chooseAShow.value = event.target.parentNode.parentNode.firstChild.innerText;
+  } else if (event.target.parentNode.parentNode.parentNode.className === "show") {
+    loadShow(event.target.parentNode.parentNode.parentNode.firstChild.innerText);
+    chooseAShow.value = event.target.parentNode.parentNode.parentNode.firstChild.innerText;
+  } else if (event.target.className === "show") {
     loadShow(event.target.firstChild.innerText);
-    chooseAShow.value = 82;
+    chooseAShow.value = event.target.firstChild.innerText;
   }
+  // if (event.target.parentNode.className === "episode") {
+  //   loadShow(event.target.parentNode.firstChild.innerText);
+  //   chooseAShow.value = 82;
+  // } else if (event.target.className === "episode") {
+  //   loadShow(event.target.firstChild.innerText);
+  //   chooseAShow.value = 82;
+  // }
 });
 chooseAShow.onchange = (event) => loadShow(event.target.value);
 
