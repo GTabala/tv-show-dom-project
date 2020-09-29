@@ -50,6 +50,7 @@ function setup() {
   makePageForShows(allShows);
 }
 
+
 function makePageForShows(showList) {
   showList.forEach((showObject) => {
     let showContainer = document.createElement("div");
