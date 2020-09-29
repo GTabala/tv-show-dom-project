@@ -1,9 +1,54 @@
-#root {
+.episodes {
   background-color: rgb(237, 242, 243);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
+#showsContainer {
+  background-color: rgb(237, 242, 243);
+}
+
+.show {
+  margin: 10px;
+  /* padding: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  background-color: white;
+  cursor: pointer;
+}
+.show:hover {
+  background-color: rgb(199, 223, 216);
+}
+.show h1 {
+  width: 100%;
+  padding-left: 20px;
+}
+.showSummary {
+  width: 70%;
+
+  margin: 0;
+}
+.showSummary p {
+  padding: 20px;
+}
+
+.imgShow {
+  display: flex;
+  align-items: center;
+}
+
+.info {
+  width: 15%;
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#navShow {
+  background-color: chocolate;
+}
+
 .episode {
   margin: 20px;
   display: flex;
@@ -13,9 +58,10 @@
   justify-content: flex-start;
   background-color: white;
   border-radius: 5px;
+  cursor: pointer;
 }
-.episode :focus {
-background-color: chocolate;
+.episode:hover {
+  background-color: rgb(199, 223, 216);
 }
 
 .titleEp {
@@ -34,7 +80,7 @@ background-color: chocolate;
 }
 p {
   padding: 0 10% 5px 10%;
-line-height: 1.8;
+  line-height: 1.8;
 }
 .hidden {
   display: none;
@@ -44,6 +90,5 @@ line-height: 1.8;
 }
 #navBar {
   height: 50px;
-  /* background-color: blueviolet; */
   width: 100%;
 }
