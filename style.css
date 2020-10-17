@@ -45,9 +45,7 @@
   flex-direction: column;
   justify-content: space-around;
 }
-#navShow {
-  background-color: chocolate;
-}
+
 
 .episode {
   margin: 20px;
@@ -88,7 +86,7 @@ p {
 #search {
   width: 100px;
 }
-#navBar {
+#navBar, #navShow {
   height: 50px;
   width: 100%;
 }

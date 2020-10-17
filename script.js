@@ -1,5 +1,7 @@
 let showSelector = document.createElement("select");
 
+let showArray = [];
+
 showSelector.id = "showSelector";
 showSelector.name = "chooseShow";
 showSelector.style.height = "30px";
@@ -26,6 +28,20 @@ optionAllShow.value = 0;
 optionAllShow.innerText = "All shows";
 showSelector.appendChild(optionAllShow);
 chooseAShow.appendChild(optionAllShow.cloneNode(true));
+let searchShow = document.createElement("input");
+let showsFound = document.createElement("p");
+
+// rootElem.appendChild(nav);
+// rootElem.insertBefore(nav, rootElem.firstChild);
+navShow.appendChild(searchShow);
+searchShow.id = "searchShow";
+searchShow.style.marginLeft = "20px";
+searchShow.style.width = "250px";
+searchShow.style.height = "25px";
+searchShow.style.borderRadius = "5px";
+searchShow.placeholder = "your search term...";
+navShow.appendChild(showsFound);
+
 
 function setup() {
   let allShows = getAllShows().filter((i) => i.id != 1127);
@@ -50,6 +66,45 @@ function setup() {
   makePageForShows(allShows);
 }
 
+showSelector.onchange = (event) => {
+  searchShow.value = "";
+  console.log(event.target.value);
+  if (event.target.value === "0") {
+   
+    findShows();
+  } else {
+    showArray.forEach((element) => {
+      if (element.show.id === event.target.value) {
+        element.show.classList.remove("hidden");
+      } else {
+        element.show.classList.add("hidden");
+      }
+    });
+  } 
+};
+
+let findShows = () => {
+ 
+ let showsFoundCounter = 0;
+  showArray.forEach(element => {
+    if (
+      element.name.includes(searchShow.value.toLowerCase()) ||
+      element.summary.includes(searchShow.value.toLowerCase()) ||
+      element.genres.includes(searchShow.value.toLowerCase())
+      )
+      {
+        element.show.classList.remove("hidden");
+        showsFoundCounter++;
+      } else {
+        element.show.classList.add("hidden");
+      }
+      showsFound.innerText = searchShow.value && `Found ${showsFoundCounter} shows`;
+  });
+
+}
+
+searchShow.onkeyup = findShows;
+
 
 function makePageForShows(showList) {
   showList.forEach((showObject) => {
@@ -70,6 +125,8 @@ function makePageForShows(showList) {
    
     </div>`;
     showsContainer.appendChild(showContainer);
+    showArray.push({"show":showContainer, "name": showObject.name.toLowerCase(),
+     "genres": showObject.genres.join(", ").toLowerCase(), "summary": showObject.summary.toLowerCase()});
     showContainer.onclick = () => {
       chooseAShow.value =showObject.id; 
       loadShow(showObject.id);
@@ -254,7 +311,9 @@ chooseAShow.onchange = (event) => {
   } else { 
     rootElem.classList.add("hidden");
     showsContainer.classList.remove("hidden");
-   
+    showSelector.value = 0;
+    searchShow.value="";
+    findShows();
   }
 };
 
